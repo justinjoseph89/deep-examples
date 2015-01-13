@@ -58,6 +58,7 @@
     <modules>
         <module>deep-examples-commons</module>
         <module>deep-aerospike</module>
+        <module>deep-aerospike-native</module>
         <module>deep-cassandra</module>
         <module>deep-elasticsearch</module>
         <module>deep-file</module>
