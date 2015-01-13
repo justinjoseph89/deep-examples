@@ -17,8 +17,8 @@
  */
 package com.stratio.deep.examples.scala
 
-import com.stratio.deep.aerospike_native.config.{ AerospikeConfigFactory, AerospikeDeepJobConfig }
-import com.stratio.deep.aerospike_native.extractor.AerospikeNativeCellExtractor
+import com.stratio.deep.aerospike.direct.config.{AerospikeConfigFactory, AerospikeDeepJobConfig}
+import com.stratio.deep.aerospike.direct.extractor.AerospikeNativeCellExtractor
 import com.stratio.deep.commons.entity.Cells
 import com.stratio.deep.core.context.DeepSparkContext
 import com.stratio.deep.examples.utils.ContextProperties
@@ -47,6 +47,7 @@ object ReadingCellFromAerospikeNative {
     val inputConfigEntity: AerospikeDeepJobConfig[Cells] = AerospikeConfigFactory.createAerospike().host(host).port(port).namespace(namespace).set(set)
     inputConfigEntity.setExtractorImplClass(classOf[AerospikeNativeCellExtractor])
     inputConfigEntity.initialize()
+
 
     val inputRDDEntity: RDD[Cells] = deepContext.createJavaRDD(inputConfigEntity)
 

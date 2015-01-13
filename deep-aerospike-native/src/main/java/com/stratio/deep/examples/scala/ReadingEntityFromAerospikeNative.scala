@@ -17,10 +17,10 @@
  */
 package com.stratio.deep.examples.scala
 
-import com.stratio.deep.aerospike_native.config.{ AerospikeConfigFactory, AerospikeDeepJobConfig }
-import com.stratio.deep.aerospike_native.extractor.AerospikeNativeEntityExtractor
+import com.stratio.deep.aerospike.direct.config.{AerospikeConfigFactory, AerospikeDeepJobConfig}
+import com.stratio.deep.aerospike.direct.extractor.AerospikeNativeEntityExtractor
 import com.stratio.deep.core.context.DeepSparkContext
-import com.stratio.deep.examples.utils.{ MessageTestEntity, ContextProperties }
+import com.stratio.deep.examples.utils.{MessageTestEntity, ContextProperties}
 import org.apache.spark.rdd.RDD
 
 /**

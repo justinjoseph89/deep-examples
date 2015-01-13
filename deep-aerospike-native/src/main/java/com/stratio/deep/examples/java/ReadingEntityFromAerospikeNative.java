@@ -17,13 +17,12 @@
  */
 package com.stratio.deep.examples.java;
 
-import com.stratio.deep.aerospike_native.config.AerospikeConfigFactory;
-import com.stratio.deep.aerospike_native.config.AerospikeDeepJobConfig;
-import com.stratio.deep.aerospike_native.extractor.AerospikeNativeEntityExtractor;
+import com.stratio.deep.aerospike.direct.config.AerospikeConfigFactory;
+import com.stratio.deep.aerospike.direct.config.AerospikeDeepJobConfig;
+import com.stratio.deep.aerospike.direct.extractor.AerospikeNativeEntityExtractor;
 import com.stratio.deep.core.context.DeepSparkContext;
 import com.stratio.deep.examples.utils.ContextProperties;
 import com.stratio.deep.examples.utils.MessageTestEntity;
-
 import org.apache.log4j.Logger;
 import org.apache.spark.api.java.JavaRDD;
 
