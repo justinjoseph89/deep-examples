@@ -2,6 +2,8 @@ hs_err_pid*.log
 nohup.out
 .idea
 *.iml
+.project
+.settings/*
 **/.idea
 */.classpath
 */.project
