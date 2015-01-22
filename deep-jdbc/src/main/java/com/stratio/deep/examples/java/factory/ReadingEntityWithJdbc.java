@@ -15,11 +15,13 @@
  */
 package com.stratio.deep.examples.java.factory;
 
+import com.mysql.jdbc.Driver;
 import com.stratio.deep.core.context.DeepSparkContext;
 import com.stratio.deep.core.entity.MessageTestEntity;
 import com.stratio.deep.jdbc.config.JdbcConfigFactory;
 import com.stratio.deep.jdbc.config.JdbcDeepJobConfig;
 import com.stratio.deep.examples.utils.ContextProperties;
+import com.stratio.deep.jdbc.config.JdbcDeepJobConfig;
 import org.apache.log4j.Logger;
 import org.apache.spark.rdd.RDD;
 
@@ -42,7 +44,7 @@ public class ReadingEntityWithJdbc {
 
         String host = "127.0.0.1";
         int port = 3306;
-        String driverClass = "com.mysql.jdbc.Driver";
+        Class driverClass = Driver.class;
         String user = "root";
         String password = "root";
 

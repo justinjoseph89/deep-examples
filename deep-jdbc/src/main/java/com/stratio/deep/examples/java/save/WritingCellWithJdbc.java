@@ -15,10 +15,12 @@
  */
 package com.stratio.deep.examples.java.save;
 
+import com.mysql.jdbc.Driver;
 import com.stratio.deep.core.context.DeepSparkContext;
 import com.stratio.deep.jdbc.config.JdbcConfigFactory;
 import com.stratio.deep.jdbc.config.JdbcDeepJobConfig;
 import com.stratio.deep.examples.utils.ContextProperties;
+import com.stratio.deep.jdbc.config.JdbcDeepJobConfig;
 import org.apache.log4j.Logger;
 import org.apache.spark.rdd.RDD;
 
@@ -37,13 +39,17 @@ public class WritingCellWithJdbc {
     }
 
     public static void doMain(String[] args) {
-        String job = "java:readingCellFromJdbc";
+        String job = "java:writingCellWithJdbc";
 
         String host = "127.0.0.1";
-        int port = 1521;
+        int port = 3306;
+        Class driverClass = Driver.class;
+        String user = "root";
+        String password = "root";
 
-        String table = "CARS";
-        String outputTable = "CARS_OUTPUT";
+        String database = "test";
+        String inputTable = "test_table";
+        String outputTable = "test_table_output";
 
         // Creating the Deep Context where args are Spark Master and Job Name
         ContextProperties p = new ContextProperties(args);
@@ -51,13 +57,11 @@ public class WritingCellWithJdbc {
                 p.getJars());
 
         JdbcDeepJobConfig inputConfigCell = JdbcConfigFactory.createJdbc().host(host).port(port)
-                .connectionUrl("jdbc:oracle:thin:system/manager@localhost:1521:XE")
-                .table(table)
-                .username("system")
-                .password("manager")
-                .driverClass("oracle.jdbc.driver.OracleDriver")
-                .query("select * from cars")
-                ;
+                .username(user)
+                .password(password)
+                .driverClass(driverClass)
+                .database(database)
+                .table(inputTable);
 
         RDD inputRDDCell = deepContext.createRDD(inputConfigCell);
 
@@ -65,15 +69,14 @@ public class WritingCellWithJdbc {
         LOG.info("prints first entity  : " + inputRDDCell.first());
 
         JdbcDeepJobConfig outputConfigCell = JdbcConfigFactory.createJdbc().host(host).port(port)
-                .connectionUrl("jdbc:oracle:thin:system/manager@localhost:1521:XE")
-                .table(outputTable)
-                .username("system")
-                .password("manager")
-                .driverClass("oracle.jdbc.driver.OracleDriver");
+                .username(user)
+                .password(password)
+                .driverClass(driverClass)
+                .database(database)
+                .table(outputTable);
         outputConfigCell.initialize();
 
         deepContext.saveRDD(inputRDDCell, outputConfigCell);
-
 
         deepContext.stop();
 

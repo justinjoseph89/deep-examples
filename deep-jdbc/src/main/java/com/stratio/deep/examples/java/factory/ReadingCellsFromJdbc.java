@@ -50,19 +50,19 @@ public class ReadingCellsFromJdbc {
         DeepSparkContext deepContext = new DeepSparkContext(p.getCluster(), job, p.getSparkHome(),
                 p.getJars());
 
-        JdbcDeepJobConfig inputConfigCell = JdbcConfigFactory.createJdbc().host(host).port(port)
-                .connectionUrl("jdbc:oracle:thin:system/manager@localhost:1521:XE")
-                .table(table)
-                .username("system")
-                .password("manager")
-                .driverClass("oracle.jdbc.driver.OracleDriver")
-                .query("select * from cars")
-                ;
-
-        RDD inputRDDCell = deepContext.createRDD(inputConfigCell);
-
-        LOG.info("count : " + inputRDDCell.count());
-        LOG.info("prints first cell  : " + inputRDDCell.first());
+//        JdbcDeepJobConfig inputConfigCell = JdbcConfigFactory.createJdbc().host(host).port(port)
+//                .connectionUrl("jdbc:oracle:thin:system/manager@localhost:1521:XE")
+//                .table(table)
+//                .username("system")
+//                .password("manager")
+//                .driverClass("oracle.jdbc.driver.OracleDriver")
+//                .query("select * from cars")
+//                ;
+//
+//        RDD inputRDDCell = deepContext.createRDD(inputConfigCell);
+//
+//        LOG.info("count : " + inputRDDCell.count());
+//        LOG.info("prints first cell  : " + inputRDDCell.first());
 
         deepContext.stop();
 

@@ -15,10 +15,13 @@
  */
 package com.stratio.deep.examples.java.factory;
 
+import com.mysql.jdbc.Driver;
+import com.stratio.deep.commons.filter.Filter;
+import com.stratio.deep.commons.filter.FilterType;
 import com.stratio.deep.core.context.DeepSparkContext;
+import com.stratio.deep.examples.utils.ContextProperties;
 import com.stratio.deep.jdbc.config.JdbcConfigFactory;
 import com.stratio.deep.jdbc.config.JdbcDeepJobConfig;
-import com.stratio.deep.examples.utils.ContextProperties;
 import org.apache.log4j.Logger;
 import org.apache.spark.rdd.RDD;
 
@@ -41,7 +44,7 @@ public class ReadingCellWithJdbc {
 
         String host = "127.0.0.1";
         int port = 3306;
-        String driverClass = "com.mysql.jdbc.Driver";
+        Class driverClass = Driver.class;
         String user = "root";
         String password = "root";
 
@@ -53,12 +56,16 @@ public class ReadingCellWithJdbc {
         DeepSparkContext deepContext = new DeepSparkContext(p.getCluster(), job, p.getSparkHome(),
                 p.getJars());
 
+        Filter [] filters = new Filter[1];
+        filters[0] = new Filter("number", FilterType.LTE, 1);
         JdbcDeepJobConfig inputConfigCell = JdbcConfigFactory.createJdbc().host(host).port(port)
                 .username(user)
                 .password(password)
                 .driverClass(driverClass)
                 .database(database)
-                .table(table);
+                .table(table)
+                .inputColumns("message")
+                .filters(filters);
         inputConfigCell.initialize();
 
         RDD inputRDDCell = deepContext.createRDD(inputConfigCell);
