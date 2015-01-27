@@ -15,24 +15,22 @@
  */
 package com.stratio.deep.examples.java.factory;
 
-import com.mysql.jdbc.Driver;
 import com.stratio.deep.commons.filter.Filter;
-import com.stratio.deep.commons.filter.FilterType;
 import com.stratio.deep.core.context.DeepSparkContext;
 import com.stratio.deep.examples.utils.ContextProperties;
-import com.stratio.deep.jdbc.config.JdbcConfigFactory;
-import com.stratio.deep.jdbc.config.JdbcDeepJobConfig;
+import com.stratio.deep.jdbc.config.JdbcNeo4JConfigFactory;
+import com.stratio.deep.jdbc.config.JdbcNeo4JDeepJobConfig;
 import org.apache.log4j.Logger;
 import org.apache.spark.rdd.RDD;
 
 /**
- * Usage of JDBC extractor for reading from a MySQL database into Cells.
+ * Usage of JDBC extractor for reading from a Neo4J database into Cells.
  */
-public class ReadingCellWithJdbc {
+public class ReadingCellWithJdbcNeo4J {
 
     private static final Logger LOG = Logger.getLogger(ReadingCellWithJdbc.class);
 
-    private ReadingCellWithJdbc() {
+    private ReadingCellWithJdbcNeo4J() {
     }
 
     public static void main(String[] args) {
@@ -40,16 +38,10 @@ public class ReadingCellWithJdbc {
     }
 
     public static void doMain(String[] args) {
-        String job = "java:readingCellWithJdbc";
+        String job = "java:readingCellWithJdbcNeo4J";
 
         String host = "127.0.0.1";
-        int port = 3306;
-        Class driverClass = Driver.class;
-        String user = "root";
-        String password = "root";
-
-        String database = "test";
-        String table = "test_table";
+        int port = 7474;
 
         // Creating the Deep Context where args are Spark Master and Job Name
         ContextProperties p = new ContextProperties(args);
@@ -57,18 +49,10 @@ public class ReadingCellWithJdbc {
                 p.getJars());
 
         Filter [] filters = new Filter[1];
-        filters[0] = new Filter("number", FilterType.LTE, 1);
-        JdbcDeepJobConfig inputConfigCell = JdbcConfigFactory.createJdbc().host(host).port(port)
-                .username(user)
-                .password(password)
-                .driverClass(driverClass)
-                .database(database)
-                .table(table)
-                .inputColumns("message")
-                .partitionKey("id")
-                .numPartitions(2)
-                .upperBound(4)
-                .filters(filters);
+        JdbcNeo4JDeepJobConfig inputConfigCell = JdbcNeo4JConfigFactory.createJdbcNeo4J().host(host).port(port)
+                .connectionUrl("jdbc:neo4j://127.0.0.1:7474")
+                .cypherQuery("MATCH (a)-[:`ACTED_IN`]->(b) RETURN a,b LIMIT 25");
+
         inputConfigCell.initialize();
 
         RDD inputRDDCell = deepContext.createRDD(inputConfigCell);
