@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.stratio.deep</groupId>
     <artifactId>deep-examples</artifactId>
-    <version>0.7.0-RC2</version>
+    <version>0.7.0-RC3</version>
     <packaging>pom</packaging>
     <url>http://www.stratio.com</url>
     <name>deep examples</name>
@@ -30,10 +30,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Deep  -->
-        <deep.version>0.7.0-RC2</deep.version>
+        <deep.version>0.7.0-RC3</deep.version>
 
         <!-- Examples  -->
-        <examples.version>0.7.0-RC2</examples.version>
+        <examples.version>0.7.0-RC3</examples.version>
 
         <!-- Java  -->
         <java.version>1.7</java.version>

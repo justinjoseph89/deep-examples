@@ -44,7 +44,7 @@ public class ReadingCellWithJdbc {
 
         String host = "127.0.0.1";
         int port = 3306;
-        Class driverClass = Driver.class;
+        String driverClass = "com.mysql.jdbc.Driver";
         String user = "root";
         String password = "root";
 
